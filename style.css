@@ -1,0 +1,46 @@
+/* 
+    Document   : style
+    Created on : 14 avr. 2013, 19:16:47
+    Author     : Alexis
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+
+* {
+    border: medium none;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    background: linear-gradient(#555555, #2C2C2C) repeat scroll 0 0 transparent;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5), 0 -1px 0 rgba(255, 255, 255, 0.4);
+    color: #000000;
+    font-family: Arial,sans-serif;
+    font-size: 1.8em;
+    height: 43px;
+    margin: 2px;
+    padding-top: 7px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    width: 200px;
+}
+
+html {
+    font: 1em "Helvetica Neue",Helvetica,"Trebuchet MS",Arial,Verdana,sans-serif;
+}
+
+p:active {
+    background: linear-gradient(#555555, #2C2C2C) repeat scroll 0 0 transparent;
+    box-shadow: 1px 1px 10px black inset, 0 1px 0 rgba(255, 255, 255, 0.4);
+    color: #000000;
+}
+
+
+

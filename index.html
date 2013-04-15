@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dallos</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <p id="0" onClick="donne(0);"></p><br>
+        <p id="1" onClick="donne(1);"></p><br>
+        <p id="2" onClick="donne(2);"></p><br>
+        <p id="3" onClick="donne(3);"></p><br>
+        <p id="4" onClick="donne(4);"></p><br>
+        <p id="5" onClick="donne(5);"></p><br>
+        <p id="6" onClick="donne(6);"></p><br>
+        <p id="7" onClick="donne(7);"></p><br>
+        <p id="info">test</p>
+        <p id="debug">test</p>
+    </body>
+
+    <script  type="text/javascript">
+        //Déclaration des variables
+        var noms = []; //Les noms des joueurs
+        var gorgee = []; //Le nombre de gorgées que chaque joueur à bu
+        var nbPlayed = 1;
+        
+        //
+        var nbPlayers = prompt("Nombre de joueurs", 8);
+        var i=1;
+        
+        while (i<=nbPlayers){
+            noms.push(prompt("Nom du joueur "+i, "Scatophile"));
+            gorgee.push(0);
+            i++;        
+        }
+        //Premier joueur du premier tour
+        var resteADonner = 2;
+        var currentPlayer = 0;
+        document.getElementById('info').innerHTML = 'joueur ' + noms[0] + ' reste à donner : ' + resteADonner;
+        for (var i = 0; i < nbPlayers; i++) { 
+            document.getElementById(i).innerHTML = noms[i];
+        }
+        
+        //Fonctions min et max d'un tableau
+        Array.prototype.max = function() {
+            var max = this[0];
+            var len = this.length;
+            for (var i = 1; i < len; i++)
+                if (this[i] >= max)
+                    max = this[i];
+            return max;
+        };
+        Array.prototype.min = function() {
+            var min = this[0];
+            var len = this.length;
+            for (var i = 1; i < len; i++)
+                if (this[i] <= min)
+                    min = this[i];
+            return min;
+        };
+
+
+        function donne(numPlayer) {
+            gorgee[numPlayer]++;
+            resteADonner--;
+            if (resteADonner === 0) {
+                if (currentPlayer === nbPlayers - 1)
+                {
+                    currentPlayer = 0;
+                }
+                else 
+                {
+                    currentPlayer++;
+                }
+
+                if(nbPlayed<nbPlayers){ //ex : tant que nbToursJoues < nbJoueurs 
+                    nbPlayed++;
+                    
+                    resteADonner=2;
+                    document.getElementById('debug').innerHTML = "distribue";
+                }
+                else 
+                {
+                    if (gorgee[currentPlayer] === gorgee.max())
+                    {
+                        resteADonner = 4;
+                    }
+                    else 
+                    {
+                        resteADonner = 2;
+                    }
+                    
+                    if (gorgee[currentPlayer] === gorgee.min()) 
+                    {  
+                        document.getElementById('debug').innerHTML = "dernier, bois jusqu'a rattraper l'avant dernier, pochtron";
+                    }
+                    else 
+                    {
+                        document.getElementById('debug').innerHTML = "distribue";
+                    }
+                }
+
+            }
+
+
+            document.getElementById(numPlayer).innerHTML = noms[numPlayer] + ' ' + gorgee[numPlayer];
+
+            document.getElementById('info').innerHTML = 'joueur ' + noms[currentPlayer] + ' reste à donner : ' + resteADonner;
+
+        }//donne
+        
+//        function unset(array, valueOrIndex){
+//            var output=[];
+//            for(var i in array){
+//                if (i!=valueOrIndex)
+//                    output[i]=array[i];
+//            }
+//            return output;
+//        }
+//        
+//        function removePlayer(numPlayer)
+//        {
+//            noms = unset(noms,numPlayer);
+//            gorgee = unset(gorgee,numPlayer) ;
+//            nbPlayer--;
+//        }
+
+    </script> 
+</html>
