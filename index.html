@@ -6,109 +6,145 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <p id="0" onClick="donne(0);"></p><br>
-        <p id="1" onClick="donne(1);"></p><br>
-        <p id="2" onClick="donne(2);"></p><br>
-        <p id="3" onClick="donne(3);"></p><br>
-        <p id="4" onClick="donne(4);"></p><br>
-        <p id="5" onClick="donne(5);"></p><br>
-        <p id="6" onClick="donne(6);"></p><br>
-        <p id="7" onClick="donne(7);"></p><br>
+        <p class="button_player" id="0" onClick="donne(0);"></p>
+        <p class="button_player" id="1" onClick="donne(1);"></p>
+        <p class="button_player" id="2" onClick="donne(2);"></p>
+        <p class="button_player" id="3" onClick="donne(3);"></p>
+        <p class="button_player" id="4" onClick="donne(4);"></p>
+        <p class="button_player" id="5" onClick="donne(5);"></p>
+        <p class="button_player" id="6" onClick="donne(6);"></p>
+        <p class="button_player" id="7" onClick="donne(7);"></p>
         <p id="info">test</p>
         <p id="debug">test</p>
+        <a href="#" onclick="cancelLastMove();">Retour</a>
     </body>
 
     <script  type="text/javascript">
-        //Déclaration des variables
-        var noms = []; //Les noms des joueurs
-        var gorgee = []; //Le nombre de gorgées que chaque joueur à bu
-        var nbPlayed = 1;
-        
-        //  az
-        var nbPlayers = prompt("Nombre de joueurs", 8);
-        var i=1;
-        
-        while (i<=nbPlayers){
-            noms.push(prompt("Nom du joueur "+i, "Joueur"));
-            gorgee.push(0);
-            i++;        
-        }
-        //Premier joueur du premier tour
-        var resteADonner = 2;
-        var currentPlayer = 0;
-        document.getElementById('info').innerHTML = 'joueur ' + noms[0] + ' reste à donner : ' + resteADonner;
-        for (var i = 0; i < nbPlayers; i++) { 
-            document.getElementById(i).innerHTML = noms[i];
-        }
-        
-        //Fonctions min et max d'un tableau
-        Array.prototype.max = function() {
-            var max = this[0];
-            var len = this.length;
-            for (var i = 1; i < len; i++)
-                if (this[i] >= max)
-                    max = this[i];
-            return max;
-        };
-        Array.prototype.min = function() {
-            var min = this[0];
-            var len = this.length;
-            for (var i = 1; i < len; i++)
-                if (this[i] <= min)
-                    min = this[i];
-            return min;
-        };
+            //Déclaration des variables
+            var noms = []; //Les noms des joueurs
+            var gorgee = []; //Le nombre de gorgées que chaque joueur à bu
+            var nbPlayed = 0;
 
+            //  az
+            var nbPlayers = prompt("Nombre de joueurs", 8);
+            var i = 1;
 
-        function donne(numPlayer) {
-            gorgee[numPlayer]++;
-            resteADonner--;
-            if (resteADonner === 0) {
-                if (currentPlayer === nbPlayers - 1)
-                {
-                    currentPlayer = 0;
-                }
-                else 
-                {
-                    currentPlayer++;
-                }
-
-                if(nbPlayed<nbPlayers){ //ex : tant que nbToursJoues < nbJoueurs 
-                    nbPlayed++;
-                    
-                    resteADonner=2;
-                    document.getElementById('debug').innerHTML = "distribue";
-                }
-                else 
-                {
-                    if (gorgee[currentPlayer] === gorgee.max())
-                    {
-                        resteADonner = 4;
-                    }
-                    else 
-                    {
-                        resteADonner = 2;
-                    }
-                    
-                    if (gorgee[currentPlayer] === gorgee.min()) 
-                    {  
-                        document.getElementById('debug').innerHTML = "dernier, bois jusqu'a rattraper l'avant dernier, pochtron";
-                    }
-                    else 
-                    {
-                        document.getElementById('debug').innerHTML = "distribue";
-                    }
-                }
-
+            while (i <= nbPlayers) {
+                noms.push(prompt("Nom du joueur " + i, "Joueur"));
+                gorgee.push(0);
+                i++;
+            }
+            //Premier joueur du premier tour
+            var resteADonner = 2;
+            var currentPlayer = 0;
+            document.getElementById('info').innerHTML = 'joueur ' + noms[0] + ' reste à donner : ' + resteADonner;
+            for (var i = 0; i < nbPlayers; i++) {
+                document.getElementById(i).innerHTML = noms[i];
             }
 
+            //Fonctions min et max d'un tableau
+            Array.prototype.max = function() {
+                var max = this[0];
+                var len = this.length;
+                for (var i = 1; i < len; i++)
+                    if (this[i] >= max)
+                        max = this[i];
+                return max;
+            };
+            Array.prototype.min = function() {
+                var min = this[0];
+                var len = this.length;
+                for (var i = 1; i < len; i++)
+                    if (this[i] <= min)
+                        min = this[i];
+                return min;
+            };
 
-            document.getElementById(numPlayer).innerHTML = noms[numPlayer] + ' ' + gorgee[numPlayer];
+            var lastMove;
+            var changePlayerLastMove;
+            var activLastMove = 0;
+            
+            function donne(numPlayer) {
+                activLastMove = 1;
+                lastMove = numPlayer;
+                gorgee[numPlayer]++;
+                resteADonner--;
+                if (resteADonner === 0) {
+                    changePlayerLastMove = 1;
+                    if (currentPlayer === nbPlayers - 1)
+                    {
+                        currentPlayer = 0;
+                    }
+                    else
+                    {
+                        currentPlayer++;
+                    }
+                    nbPlayed++;
+                    if (nbPlayed < nbPlayers) { //ex : tant que nbToursJoues < nbJoueurs 
+                        resteADonner = 2;
+                        document.getElementById('debug').innerHTML = "distribue-test";
+                    }
+                    else
+                    {
+                        if (gorgee[currentPlayer] === gorgee.max())
+                        {
+                            resteADonner = 4;
+                        }
+                        else
+                        {
+                            resteADonner = 2;
+                        }
 
-            document.getElementById('info').innerHTML = 'joueur ' + noms[currentPlayer] + ' reste à donner : ' + resteADonner;
+                        if (gorgee[currentPlayer] === gorgee.min())
+                        {
+                            document.getElementById('debug').innerHTML = "dernier, bois jusqu'a rattraper l'avant dernier, pochtron";
+                        }
+                        else
+                        {
+                            document.getElementById('debug').innerHTML = "distribue";
+                        }
+                    }
 
-        }//donne
-        
+                }
+                else
+                {
+                    changePlayerLastMove = 0;
+                }
+
+
+                document.getElementById(numPlayer).innerHTML = noms[numPlayer] + '<br> ' + gorgee[numPlayer];
+
+                document.getElementById('info').innerHTML = 'joueur ' + noms[currentPlayer] + ' reste à donner : ' + resteADonner;
+
+            }//donne
+
+            function cancelLastMove() {
+                if (activLastMove === 1) {
+                    activLastMove = 0;
+                    if (changePlayerLastMove === 0) {
+                        gorgee[lastMove]--;
+                        resteADonner++;
+                    }
+                    else if (changePlayerLastMove === 1) {
+                        resteADonner = 1;
+                        gorgee[lastMove]--;
+                        nbPlayed--;
+                        if (currentPlayer === 0)
+                        {
+                            currentPlayer = nbPlayers-1;
+                        }
+                        else
+                        {
+                            currentPlayer--;
+                        }
+                    }
+                    document.getElementById(lastMove).innerHTML = noms[lastMove] + '<br> ' + gorgee[lastMove];
+
+                    document.getElementById('info').innerHTML = 'joueur ' + noms[currentPlayer] + ' reste à donner : ' + resteADonner;
+                    document.getElementById('debug').innerHTML = "distribue-retour";
+                }
+            }
+
 //        function unset(array, valueOrIndex){
 //            var output=[];
 //            for(var i in array){
