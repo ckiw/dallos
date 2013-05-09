@@ -6,37 +6,69 @@
         Purpose of the stylesheet follows.
 */
 
-root { 
-    display: block;
-}
-
-
 * {
     border: medium none;
     margin: 0;
     padding: 0;
 }
 
+body
+{
+    background-image: url("images/texture.jpg");
+    background-repeat: repeat;
+}
+
 p.button_player {
     background: linear-gradient(#555555, #2C2C2C) repeat scroll 0 0 transparent;
-    border-radius: 8px 8px 8px 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5), 0 -1px 0 rgba(255, 255, 255, 0.4);
-    color: #000000;
+    border-radius: 40px 40px 40px 40px;
+    box-shadow:2px 2px 6px 2px white;
+    color: white;
     font-family: Arial,sans-serif;
-    font-size: 1em;
-    height: 43px;
-    margin: 2px;
+    font-size: 4em;
+    height: 170px;
     padding-top: 7px;
     text-align: center;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
-    width: 100px;
+    width: 48.89%;
+    margin: 6px;
+    overflow: hidden;
+    
 }
 
 p.button_player:active {
     background: linear-gradient(#555555, #2C2C2C) repeat scroll 0 0 transparent;
     box-shadow: 1px 1px 10px black inset, 0 1px 0 rgba(255, 255, 255, 0.4);
-    color: #000000;
+    color: white;
 }
 
+p:empty {
 
+	width:0%;
+	height: 0px;
+	box-shadow: 0px 0px 0px black;
+	
+}
 
+.button_player:nth-child(odd) {
+	float: right;
+	margin-top: 0px;
+}
+
+#info {
+	font-size: 80px;
+	text-align: center;
+	color: white;
+}
+
+#debug {
+	font-size: 4em;
+	color: red;	
+	float: right;
+	width: 70%;
+}
+
+#gorges {
+	font-size: 12em;
+	text-align: center;
+	color: white;
+}

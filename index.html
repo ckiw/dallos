@@ -6,17 +6,18 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <p class="button_player" id="0" onClick="donne(0);"></p>
-        <p class="button_player" id="1" onClick="donne(1);"></p>
-        <p class="button_player" id="2" onClick="donne(2);"></p>
-        <p class="button_player" id="3" onClick="donne(3);"></p>
-        <p class="button_player" id="4" onClick="donne(4);"></p>
-        <p class="button_player" id="5" onClick="donne(5);"></p>
-        <p class="button_player" id="6" onClick="donne(6);"></p>
-        <p class="button_player" id="7" onClick="donne(7);"></p>
+        <p id="1" class="button_player" onClick="donne(1);"></p>
+        <p id="0" class="button_player" onClick="donne(0);"></p>
+        <p id="3" class="button_player" onClick="donne(3);"></p>
+        <p id="2" class="button_player" onClick="donne(2);"></p>
+        <p id="5" class="button_player" onClick="donne(5);"></p>
+        <p id="4" class="button_player" onClick="donne(4);"></p>
+        <p id="7" class="button_player" onClick="donne(7);"></p>
+        <p id="6" class="button_player" onClick="donne(6);"></p>
         <p id="info">test</p>
-        <p id="debug">test</p>
-        <a href="#" onclick="cancelLastMove();">Retour</a>
+        <p id="gorges"></p>
+        <p id="debug"></p>
+        <a href="#" onclick="cancelLastMove();"><IMG src=images/back.jpg alt="BackButton" width="28%"></a>
     </body>
 
     <script  type="text/javascript">
@@ -37,11 +38,12 @@
             //Premier joueur du premier tour
             var resteADonner = 2;
             var currentPlayer = 0;
-            document.getElementById('info').innerHTML = 'joueur ' + noms[0] + ' reste à donner : ' + resteADonner;
+            document.getElementById('info').innerHTML = noms[0] + ' reste à donner : ';
+            document.getElementById('gorges').innerHTML =resteADonner;
             for (var i = 0; i < nbPlayers; i++) {
                 document.getElementById(i).innerHTML = noms[i];
             }
-
+            
             //Fonctions min et max d'un tableau
             Array.prototype.max = function() {
                 var max = this[0];
@@ -82,8 +84,8 @@
                     nbPlayed++;
                     if (nbPlayed < nbPlayers) { //ex : tant que nbToursJoues < nbJoueurs 
                         resteADonner = 2;
-                        document.getElementById('debug').innerHTML = "distribue-test";
-                    }
+                       document.getElementById('debug').innerHTML = ""
+                                            }
                     else
                     {
                         if (gorgee[currentPlayer] === gorgee.max())
@@ -97,12 +99,13 @@
 
                         if (gorgee[currentPlayer] === gorgee.min())
                         {
-                            document.getElementById('debug').innerHTML = "dernier, bois jusqu'a rattraper l'avant dernier, pochtron";
+                            document.getElementById('debug').innerHTML = "Tu es dernier, bois jusqu'à rattraper l'avant dernier, pochtron";
                         }
                         else
                         {
-                            document.getElementById('debug').innerHTML = "distribue";
+	                        document.getElementById('debug').innerHTML = ""
                         }
+                        
                     }
 
                 }
@@ -114,7 +117,8 @@
 
                 document.getElementById(numPlayer).innerHTML = noms[numPlayer] + '<br> ' + gorgee[numPlayer];
 
-                document.getElementById('info').innerHTML = 'joueur ' + noms[currentPlayer] + ' reste à donner : ' + resteADonner;
+                document.getElementById('info').innerHTML =  noms[currentPlayer] + ' reste à donner : ';
+                document.getElementById('gorges').innerHTML =resteADonner;
 
             }//donne
 
@@ -140,8 +144,10 @@
                     }
                     document.getElementById(lastMove).innerHTML = noms[lastMove] + '<br> ' + gorgee[lastMove];
 
-                    document.getElementById('info').innerHTML = 'joueur ' + noms[currentPlayer] + ' reste à donner : ' + resteADonner;
-                    document.getElementById('debug').innerHTML = "distribue-retour";
+                    document.getElementById('info').innerHTML =  noms[currentPlayer] + ' reste à donner : ';
+                    document.getElementById('debug').innerHTML = ""
+                    document.getElementById('gorges').innerHTML =resteADonner;
+                    
                 }
             }
 
